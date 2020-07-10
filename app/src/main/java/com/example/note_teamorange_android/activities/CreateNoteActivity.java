@@ -1,10 +1,12 @@
-package com.example.note_teamorange_android;
+package com.example.note_teamorange_android.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+
+import com.example.note_teamorange_android.R;
 
 public class CreateNoteActivity extends AppCompatActivity {
 
