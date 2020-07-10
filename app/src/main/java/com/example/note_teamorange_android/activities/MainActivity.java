@@ -2,13 +2,24 @@ package com.example.note_teamorange_android.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.example.note_teamorange_android.R;
-import com.example.note_teamorange_android.activities.CreateNoteActivity;
+
+import com.example.note_teamorange_android.database.NotesDatabase;
+import com.example.note_teamorange_android.entities.Note;
+
+import java.util.List;
+
+import javax.sql.ConnectionPoolDataSource;
+
+import static com.example.note_teamorange_android.database.NotesDatabase.getDatabase;
 
 //main1111
 public class MainActivity extends AppCompatActivity {
@@ -31,9 +42,28 @@ public class MainActivity extends AppCompatActivity {
                 );
             }
         });
+        getNotes();
 
+    }
+    //just as u need a async task to save a note, u'll also need it to get notes from the database
+    private void getNotes(){
+        @SuppressLint("StaticFieldLeak")
+        class GetNotesTask extends AsyncTask<Void, Void, List<Note>> {
 
+            @Override
+            protected List<Note> doInBackground(Void... voids) {
+                return NotesDatabase
+                .getDatabase(getApplicationContext())
+                        .noteDao().getAllNotes();
+            }
 
+            @Override
+            protected void onPostExecute(List<Note> notes) {
+                super.onPostExecute(notes);
+                Log.d("MY_NOTES", notes.toString());
+            }
 
+        }
+        new GetNotesTask().execute();
     }
 }
