@@ -3,7 +3,7 @@ package com.example.note_teamorange_android;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-//main activity
+//main activity11
 public class MainActivity extends AppCompatActivity {
 
     @Override
