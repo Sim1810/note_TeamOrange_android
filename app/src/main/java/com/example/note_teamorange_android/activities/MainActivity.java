@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         getNotes();
-
+//
     }
     //just as u need a async task to save a note, u'll also need it to get notes from the database
     private void getNotes(){
