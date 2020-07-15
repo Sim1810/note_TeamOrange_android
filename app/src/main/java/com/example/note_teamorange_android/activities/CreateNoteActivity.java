@@ -70,6 +70,8 @@ public class CreateNoteActivity extends AppCompatActivity {
         initMiscellaneous();
         setSubTitleIndicator();
     }
+
+
     private void saveNote(){
         if(inputNoteTitle.getText().toString().trim().isEmpty()){
             Toast.makeText(this,"Note title can't be empty",Toast.LENGTH_SHORT).show();
@@ -85,6 +87,7 @@ public class CreateNoteActivity extends AppCompatActivity {
         note.setSubtitle(inputNoteSubtitle.getText().toString());
         note.setNoteText(inputNoteText.getText().toString());
         note.setDateTime(textDateTime.getText().toString());
+        note.setColor(selectedNoteColor);
 
         //room doesnot allow database operation on the main thread .that's why we'r using asyn task to save note.
         @SuppressLint("StaticFieldLeak")

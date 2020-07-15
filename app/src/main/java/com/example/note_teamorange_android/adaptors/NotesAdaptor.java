@@ -1,8 +1,11 @@
 package com.example.note_teamorange_android.adaptors;
 
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -56,12 +59,14 @@ public class NotesAdaptor extends RecyclerView.Adapter<NotesAdaptor.NoteViewHold
 
 
         TextView textTitle,textSubTitle,textDateTime;
+        LinearLayout layoutNote;
 
          NoteViewHolder(@NonNull View itemView) {
             super(itemView);
             textTitle = itemView.findViewById(R.id.textTitle);
             textSubTitle = itemView.findViewById(R.id.textSubtitle);
             textDateTime = itemView.findViewById(R.id.textDateTime);
+            layoutNote = itemView.findViewById(R.id.layoutNote);
 
         }
 
@@ -75,6 +80,13 @@ public class NotesAdaptor extends RecyclerView.Adapter<NotesAdaptor.NoteViewHold
                  textSubTitle.setText(note.getSubtitle());
              }
              textDateTime.setText(note.getDateTime());
+
+            GradientDrawable gradientDrawable = (GradientDrawable) layoutNote.getBackground();
+            if (note.getColor() != null ){
+                gradientDrawable.setColor(Color.parseColor(note.getColor()));
+            }else {
+                gradientDrawable.setColor(Color.parseColor("#333333"));
+            }
         }
     }
 }
