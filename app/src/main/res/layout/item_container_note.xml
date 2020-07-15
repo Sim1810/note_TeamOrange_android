@@ -42,5 +42,5 @@
         android:fontFamily="@font/ubuntu_regular"
         android:includeFontPadding="false"
         android:textColor="@color/colorNoteSubtitleText"
-        android:textSize="@dimen/_7ssp"
+        android:textSize="@dimen/_7ssp"/>
 </LinearLayout>
