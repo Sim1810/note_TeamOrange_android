@@ -28,7 +28,7 @@
         android:right="@dimen/_6sdp">
 
         <shape android:shape="oval">
-            <solid android:color="@color/colorNoteColor5"
+            <solid android:color="@color/colorNoteColor5"></solid>
         </shape>
     </item>
 </layer-list>

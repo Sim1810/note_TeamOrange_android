@@ -141,4 +141,5 @@
 
     </ScrollView>
 
+    <include layout="@layout/layout_misc"/>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
