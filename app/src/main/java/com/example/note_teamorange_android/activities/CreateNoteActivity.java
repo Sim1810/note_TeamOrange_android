@@ -141,7 +141,7 @@ public class CreateNoteActivity extends AppCompatActivity {
                 setSubTitleIndicator();
             }
         });
-        layoutMiscellaneous.findViewById(R.id.viewcolor1).setOnClickListener(new View.OnClickListener() {
+        layoutMiscellaneous.findViewById(R.id.viewcolor2).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 selectedNoteColor = "#FDBE38";
@@ -153,7 +153,7 @@ public class CreateNoteActivity extends AppCompatActivity {
                 setSubTitleIndicator();
             }
         });
-        layoutMiscellaneous.findViewById(R.id.viewcolor1).setOnClickListener(new View.OnClickListener() {
+        layoutMiscellaneous.findViewById(R.id.viewcolor3).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 selectedNoteColor = "#FF4842";
@@ -165,7 +165,7 @@ public class CreateNoteActivity extends AppCompatActivity {
                 setSubTitleIndicator();
             }
         });
-        layoutMiscellaneous.findViewById(R.id.viewcolor1).setOnClickListener(new View.OnClickListener() {
+        layoutMiscellaneous.findViewById(R.id.viewcolor4).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 selectedNoteColor = "#3A52Fc";
@@ -177,7 +177,7 @@ public class CreateNoteActivity extends AppCompatActivity {
                 setSubTitleIndicator();
             }
         });
-        layoutMiscellaneous.findViewById(R.id.viewcolor1).setOnClickListener(new View.OnClickListener() {
+        layoutMiscellaneous.findViewById(R.id.viewcolor5).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 selectedNoteColor = "#000000";
