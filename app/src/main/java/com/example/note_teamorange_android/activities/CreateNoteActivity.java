@@ -22,7 +22,7 @@ import java.util.Date;
 import java.util.Locale;
 
 public class CreateNoteActivity extends AppCompatActivity {
-
+//commit
     private EditText inputNoteTitle , inputNoteSubtitle, inputNoteText;
     private TextView textDateTime;
 
