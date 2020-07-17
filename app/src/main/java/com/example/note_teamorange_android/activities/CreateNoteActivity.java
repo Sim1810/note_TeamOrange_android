@@ -236,7 +236,7 @@ public class CreateNoteActivity extends AppCompatActivity {
     private  void selectImage(){
 
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        if (intent.resolveActivity(getPackageManager() != null)){
+        if (intent.resolveActivity(getPackageManager()) != null){
             startActivityForResult(intent,REQUEST_CODE_SELECT_IMAGE);
         }
     }
@@ -256,7 +256,7 @@ public class CreateNoteActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_CODE_SELECT_IMAGE && requestCode == RESULT_OK){
+        if (requestCode == REQUEST_CODE_SELECT_IMAGE && resultCode == RESULT_OK){
             if (data != null){
                 Uri selectedImageUri = data.getData();
                 if (selectedImageUri != null){
