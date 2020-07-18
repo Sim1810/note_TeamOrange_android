@@ -169,7 +169,7 @@
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:visibility="gone"
-        tools:ignore="UseCompoundDrawables"/>
+        tools:ignore="UseCompoundDrawables">
 
         <ImageView
             android:layout_width="@dimen/_22sdp"
@@ -187,4 +187,5 @@
         android:text="@string/delete_note"
         android:textColor="@color/colorDelete"
         android:textSize="@dimen/_12ssp" />
+     </LinearLayout>
 </LinearLayout>
