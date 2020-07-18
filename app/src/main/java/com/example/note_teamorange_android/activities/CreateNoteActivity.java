@@ -11,6 +11,8 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.GradientDrawable;
@@ -263,7 +265,7 @@ if(alreadyAvailableNote != null){
             }
         }
 
-        layoutMiscellaneous.findViewById(R.id.layouAddImage).setOnClickListener(new View.OnClickListener() {
+        layoutMiscellaneous.findViewById(R.id.layoutAddImage).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                             bottomSheetBehavior.setState(bottomSheetBehavior.STATE_COLLAPSED);
@@ -375,6 +377,9 @@ if(alreadyAvailableNote != null){
                 if (selectedImageUri != null){
                     try {
                         InputStream inputStream = getContentResolver().openInputStream(selectedImageUri);
+                        Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+                        imageNote.setImageBitmap(bitmap);
+                        imageNote.setVisibility(View.VISIBLE);
 
                     } catch (Exception exception){
                         Toast.makeText(this,exception.getMessage(),Toast.LENGTH_SHORT).show();

@@ -59,17 +59,16 @@ public  static final int REQUEST_CODE_SHOW_NOTES = 3;//used to display all notes
 
         notesRecyclerView = findViewById(R.id.notesRecyclerView);
         notesRecyclerView.setLayoutManager(
-                new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL)
+                new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
         );
 
         noteList = new ArrayList<>();
         notesAdaptor = new NotesAdaptor(noteList, this);
         notesRecyclerView.setAdapter(notesAdaptor);
 
-        getNotes(REQUEST_CODE_SHOW_NOTES,false);//this getNotes() method is called from onCreate() method of an activity.
+        getNotes(REQUEST_CODE_SHOW_NOTES, false);//this getNotes() method is called from onCreate() method of an activity.
         //it means the app is just started & we need to display all notes from the database &that's why we r passing
-       // REQUEST_CODE_SHOW_NOTES to that method
-
+        // REQUEST_CODE_SHOW_NOTES to that method
     }
 
     @Override

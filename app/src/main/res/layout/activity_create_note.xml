@@ -112,6 +112,8 @@
               app:layout_constraintBottom_toBottomOf="@+id/inputNoteSubtitle"
               app:layout_constraintStart_toStartOf="parent"
               app:layout_constraintTop_toTopOf="@+id/inputNoteSubtitle"/>
+
+
           <ImageView
               android:id="@+id/imageNote"
               android:layout_width="match_parent"

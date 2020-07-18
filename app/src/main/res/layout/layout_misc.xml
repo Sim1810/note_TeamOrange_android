@@ -134,7 +134,7 @@
 
     </LinearLayout>
     <LinearLayout
-        android:id="@+id/layouAddImage"
+        android:id="@+id/layoutAddImage"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_35sdp"
         android:layout_margin="@dimen/_10sdp"
