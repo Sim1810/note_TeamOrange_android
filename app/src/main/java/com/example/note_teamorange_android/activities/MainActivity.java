@@ -66,7 +66,7 @@ public  static final int REQUEST_CODE_SHOW_NOTES = 3;//used to display all notes
         notesAdaptor = new NotesAdaptor(noteList, this);
         notesRecyclerView.setAdapter(notesAdaptor);
 
-        getNotes(REQUEST_CODE_SHOW_NOTES);//this getNotes() method is called from onCreate() method of an activity.
+        getNotes(REQUEST_CODE_SHOW_NOTES,false);//this getNotes() method is called from onCreate() method of an activity.
         //it means the app is just started & we need to display all notes from the database &that's why we r passing
        // REQUEST_CODE_SHOW_NOTES to that method
 
@@ -83,7 +83,7 @@ public  static final int REQUEST_CODE_SHOW_NOTES = 3;//used to display all notes
     }
 
     //just as u need a async task to save a note, u'll also need it to get notes from the database
-    private void getNotes(final int requestCode){//getting requestCode as a method parameter
+    private void getNotes(final int requestCode, final boolean isNotDeleted){//getting requestCode as a method parameter
 
 
 
@@ -115,7 +115,17 @@ public  static final int REQUEST_CODE_SHOW_NOTES = 3;//used to display all notes
                     noteList.remove(noteClickedPostion);
                     noteList.add(noteClickedPostion, notes.get(noteClickedPostion));
                     notesAdaptor.notifyItemChanged(noteClickedPostion);
+
+                    if(isNotDeleted){
+                        notesAdaptor.notifyItemRemoved(noteClickedPostion);
+                    } else{
+                        noteList.add(noteClickedPostion, notes.get(noteClickedPostion));
+                        notesAdaptor.notifyItemChanged(noteClickedPostion);
+                    }//if requestcode is update , first we remove note from list. then we chekd if the note is deleted or not.if note deleted then
+                    //notifying adaptr aboout item removed.if note is not deleted then it must be updated that's why we r adding a newly updated note
+                    //to that same position where w removed & notifying adapter about item changed.
                 }
+
               /*  if (noteList.size() == 0){
                     noteList.addAll(notes);
                     notesAdaptor.notifyDataSetChanged();
@@ -134,13 +144,15 @@ public  static final int REQUEST_CODE_SHOW_NOTES = 3;//used to display all notes
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_CODE_ADD_NOTE && resultCode == RESULT_OK){
-            getNotes(REQUEST_CODE_ADD_NOTE);
+            getNotes(REQUEST_CODE_ADD_NOTE,false);
         } else if(requestCode == REQUEST_CODE_UPDATE_NOTE && resultCode == RESULT_OK ){
             if(data != null){
-                getNotes(REQUEST_CODE_UPDATE_NOTE);//getNotes() method is called from onActivityResult method of activity
+                getNotes(REQUEST_CODE_UPDATE_NOTE,data.getBooleanExtra("isNoteDeleted",false));//getNotes() method is called from onActivityResult method of activity
                 //& we checked current request code is forupdate note & the result is RESULT_OK.it means already available
                 //note is updated from createNote activity & its result is sent back to this activity.that's why we r passing
-                //REQUEST_CODE_UPDATE_NOTE to that method.
+                //REQUEST_CODE_UPDATE_NOTE to that method. here added a new note, so isnotedeleted is false as parameter
+                //hee we r updating already available note from db, it may be possible that note gets deleted so as a parameter isNoteDeleted
+               // we r passing value from createnoteactivity ,whether the note is deleted or not using intent data with key "isnotedeleted"
             }
         }
     }
