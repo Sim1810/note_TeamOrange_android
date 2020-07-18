@@ -43,7 +43,7 @@ public class CreateNoteActivity extends AppCompatActivity {
     private TextView textDateTime;
     private View viewSubTitleIndicator;
     private ImageView imageNote;
-    private TextView textWebURL;
+   private TextView textWebURL;
     private LinearLayout layoutWebURL;
 
     private  String selectedNoteColor;
@@ -102,15 +102,15 @@ public class CreateNoteActivity extends AppCompatActivity {
         inputNoteSubtitle.setText(alreadyAvailableNote.getSubtitle());
         inputNoteText.setText(alreadyAvailableNote.getNoteText());
         textDateTime.setText(alreadyAvailableNote.getDateTime());
-        if(alreadyAvailableNote.getImagePath() != null && !alreadyAvailableNote.getImagePath().trim().isEmpty()){
-          //  imageNote.setImageBitmap(BitmapFacotry.decodeFile(alreadyAvailableNote.getImagePath()));
-          //  imageNote.setVisibility(View.VISIBLE);
-           // selectedImagePath = alreadyAvailableNote.getImagePath();
+        /*if(alreadyAvailableNote.getImagePath() != null && !alreadyAvailableNote.getImagePath().trim().isEmpty()){
+           imageNote.setImageBitmap(BitmapFacotry.decodeFile(alreadyAvailableNote.getImagePath()));
+            imageNote.setVisibility(View.VISIBLE);
+           selectedImagePath = alreadyAvailableNote.getImagePath();
         }
         if(alreadyAvailableNote.getWebLink() != null && !alreadyAvailableNote.getWebLink().trim().isEmpty()){
             textWebURL.setText(alreadyAvailableNote.getWebLink());
             layoutWebURL.setVisibility(View.VISIBLE);
-        }
+        }*/
    }
 
     private void saveNote(){
@@ -130,9 +130,9 @@ public class CreateNoteActivity extends AppCompatActivity {
         note.setDateTime(textDateTime.getText().toString());
         note.setColor(selectedNoteColor);
         //note.setImagePath(selectedImagePath);
-        if(layoutWebURL.getVisibility() == View.VISIBLE){
+        /*if(layoutWebURL.getVisibility() == View.VISIBLE){
            note.setWebLink(textWebURL.getText().toString());
-        }
+        }*/
 if(alreadyAvailableNote != null){
     //we r setting id o new note from an already available note.since we have set onConflictStrategy to "REPLACE" in notedao.
     //This means if id of new note is already available in db then it will be replace with new note & our note get updated.
