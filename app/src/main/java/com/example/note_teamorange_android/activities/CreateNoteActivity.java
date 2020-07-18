@@ -2,6 +2,7 @@ package com.example.note_teamorange_android.activities;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -42,10 +43,16 @@ public class CreateNoteActivity extends AppCompatActivity {
     private TextView textDateTime;
     private View viewSubTitleIndicator;
     private ImageView imageNote;
+    private TextView textWebURL;
+    private LinearLayout layoutWebURL;
 
     private  String selectedNoteColor;
+    private String selectedImagePath;
     private static final  int REQUEST_CODE_STORAGE_PERMISSION = 1;
     private  static  final int REQUEST_CODE_SELECT_IMAGE = 2;
+
+    private AlertDialog dialogAddURL;
+    private Note alreadyAvailableNote;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,11 +88,30 @@ public class CreateNoteActivity extends AppCompatActivity {
         });
 
         selectedNoteColor = "#333333";
+        selectedImagePath = "";
 
+        if(getIntent().getBooleanExtra("isViewOrUpdate",false)){
+            alreadyAvailableNote =(Note) getIntent().getSerializableExtra("note");
+            setViewOrUpdateNote();
+        }
         initMiscellaneous();
         setSubTitleIndicator();
     }
-
+   private void setViewOrUpdateNote(){
+        inputNoteTitle.setText(alreadyAvailableNote.getTitle());
+        inputNoteSubtitle.setText(alreadyAvailableNote.getSubtitle());
+        inputNoteText.setText(alreadyAvailableNote.getNoteText());
+        textDateTime.setText(alreadyAvailableNote.getDateTime());
+        if(alreadyAvailableNote.getImagePath() != null && !alreadyAvailableNote.getImagePath().trim().isEmpty()){
+          //  imageNote.setImageBitmap(BitmapFacotry.decodeFile(alreadyAvailableNote.getImagePath()));
+          //  imageNote.setVisibility(View.VISIBLE);
+           // selectedImagePath = alreadyAvailableNote.getImagePath();
+        }
+        if(alreadyAvailableNote.getWebLink() != null && !alreadyAvailableNote.getWebLink().trim().isEmpty()){
+            textWebURL.setText(alreadyAvailableNote.getWebLink());
+            layoutWebURL.setVisibility(View.VISIBLE);
+        }
+   }
 
     private void saveNote(){
         if(inputNoteTitle.getText().toString().trim().isEmpty()){
@@ -103,7 +129,16 @@ public class CreateNoteActivity extends AppCompatActivity {
         note.setNoteText(inputNoteText.getText().toString());
         note.setDateTime(textDateTime.getText().toString());
         note.setColor(selectedNoteColor);
+        //note.setImagePath(selectedImagePath);
+        if(layoutWebURL.getVisibility() == View.VISIBLE){
+           note.setWebLink(textWebURL.getText().toString());
+        }
+if(alreadyAvailableNote != null){
+    //we r setting id o new note from an already available note.since we have set onConflictStrategy to "REPLACE" in notedao.
+    //This means if id of new note is already available in db then it will be replace with new note & our note get updated.
+    note.setId(alreadyAvailableNote.getId());
 
+}
         //room doesnot allow database operation on the main thread .that's why we'r using asyn task to save note.
         @SuppressLint("StaticFieldLeak")
         class SaveNoteTask extends AsyncTask<Void, Void, Void> {
@@ -207,6 +242,22 @@ public class CreateNoteActivity extends AppCompatActivity {
                 setSubTitleIndicator();
             }
         });
+        if(alreadyAvailableNote != null && alreadyAvailableNote.getColor() != null && !alreadyAvailableNote.getColor().trim().isEmpty()){
+            switch (alreadyAvailableNote.getColor()){
+                case "#FDBE3B":
+                layoutMiscellaneous.findViewById(R.id.viewcolor2).performClick();
+                break;
+                case "#FF4842":
+                    layoutMiscellaneous.findViewById(R.id.viewcolor3).performClick();
+                    break;
+                case "#3A52FC":
+                    layoutMiscellaneous.findViewById(R.id.viewcolor4).performClick();
+                case "#000000":
+                    layoutMiscellaneous.findViewById(R.id.viewcolor5).performClick();
+                    break;
+
+            }
+        }
 
         layoutMiscellaneous.findViewById(R.id.layouAddImage).setOnClickListener(new View.OnClickListener() {
             @Override

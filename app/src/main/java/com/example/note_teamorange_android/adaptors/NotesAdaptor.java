@@ -13,15 +13,21 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.note_teamorange_android.R;
 import com.example.note_teamorange_android.entities.Note;
+import com.example.note_teamorange_android.listeners.NotesListener;
 
 import java.util.List;
 
 public class NotesAdaptor extends RecyclerView.Adapter<NotesAdaptor.NoteViewHolder>{
 
     private List<Note> notes;
+    private NotesListener notesListener;
 
-    public NotesAdaptor(List<Note> notes) {
+
+
+    public NotesAdaptor(List<Note> notes, NotesListener notesListener)
+    {
         this.notes = notes;
+        this.notesListener = notesListener;
     }
 
     @NonNull
@@ -37,10 +43,18 @@ public class NotesAdaptor extends RecyclerView.Adapter<NotesAdaptor.NoteViewHold
     }
 
     @Override
-    public void onBindViewHolder(@NonNull NoteViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull NoteViewHolder holder, final int position) {
 
         holder.setNote(notes.get(position));
-    }
+        holder.layoutNote.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                notesListener.onNoteClicked(notes.get(position), position);
+            }
+        });
+
+            }
+
 
     @Override
     public int getItemCount() {

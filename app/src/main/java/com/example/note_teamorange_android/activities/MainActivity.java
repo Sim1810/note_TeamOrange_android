@@ -18,6 +18,7 @@ import com.example.note_teamorange_android.R;
 import com.example.note_teamorange_android.adaptors.NotesAdaptor;
 import com.example.note_teamorange_android.database.NotesDatabase;
 import com.example.note_teamorange_android.entities.Note;
+import com.example.note_teamorange_android.listeners.NotesListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,13 +28,17 @@ import javax.sql.ConnectionPoolDataSource;
 import static com.example.note_teamorange_android.database.NotesDatabase.getDatabase;
 
 //main1111
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NotesListener {
 
-    public static final int REQUEST_CODE_ADD_NOTE =1;
+    public static final int REQUEST_CODE_ADD_NOTE =1; //this request code is used to add a new note
+    private static final int REQUEST_CODE_UPDATE_NOTE = 2;//this request code is used to update note
+
 
     private RecyclerView notesRecyclerView;
     private List<Note> noteList;
     private NotesAdaptor notesAdaptor;
+
+    private int noteClickedPostion = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,12 +63,23 @@ public class MainActivity extends AppCompatActivity {
         );
 
         noteList = new ArrayList<>();
-        notesAdaptor = new NotesAdaptor(noteList);
+        notesAdaptor = new NotesAdaptor(noteList, this);
         notesRecyclerView.setAdapter(notesAdaptor);
 
         getNotes();
 
     }
+
+    @Override
+    public void onNoteClicked(Note note, int position) {
+        noteClickedPostion = position;
+        Intent intent = new Intent(getApplicationContext(), CreateNoteActivity.class);
+        intent.putExtra("isViewOrUpdate",true);
+        intent.putExtra("note",note);
+        startActivityForResult(intent, REQUEST_CODE_UPDATE_NOTE);
+
+    }
+
     //just as u need a async task to save a note, u'll also need it to get notes from the database
     private void getNotes(){
         @SuppressLint("StaticFieldLeak")
