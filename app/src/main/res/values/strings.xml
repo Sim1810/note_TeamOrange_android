@@ -8,4 +8,7 @@
     <string name="miscellaneous">Miscellaneous</string>
     <string name="pick_color">Pick color</string>
     <string name="add_image">Add Image</string>
+    <string name="delete_note">Delete Note</string>
+    <string name="are_you_sure_you_want_to_delete_this_note">are you sure you want to delete this note</string>
+    <string name="cancel_dialog">cancel dialog</string>
 </resources>
