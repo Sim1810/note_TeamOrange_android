@@ -12,13 +12,16 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.GradientDrawable;
 import android.media.Image;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -52,6 +55,7 @@ public class CreateNoteActivity extends AppCompatActivity {
     private  static  final int REQUEST_CODE_SELECT_IMAGE = 2;
 
     private AlertDialog dialogAddURL;
+    private AlertDialog dialogDeleteNote;
     private Note alreadyAvailableNote;
 
     @Override
@@ -277,8 +281,66 @@ if(alreadyAvailableNote != null){
                             }
             }
         });
-    }
+        if(alreadyAvailableNote != null){
+            //here if "alreadyAvailableNote" is not null then it means the user is viewing or updating already added note from the database &
+            //so we r displaying delete note option
+            layoutMiscellaneous.findViewById(R.id.layoutDeleteNote).setVisibility(View.VISIBLE);
+            layoutMiscellaneous.findViewById(R.id.layoutDeleteNote).setOnClickListener(new View.OnClickListener(){
 
+                @Override
+                public void onClick(View view) {
+                    bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+                    showDeletedNoteDialog();
+                }
+            });
+        }
+    }
+    private  void showDeletedNoteDialog(){
+        if(dialogDeleteNote == null){
+            AlertDialog.Builder builder = new AlertDialog.Builder(CreateNoteActivity.this);
+        View view = LayoutInflater.from(this).inflate(
+                R.layout.layout_delete_note,
+                (ViewGroup) findViewById(R.id.layoutDeleteNoteContainer)
+
+        );
+        builder.setView(view);
+        dialogDeleteNote = builder.create();
+        if(dialogDeleteNote.getWindow() != null){
+            dialogDeleteNote.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+
+    } view.findViewById(R.id.textDeleteNote).setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                @SuppressLint("StaticFieldLeak")
+                class DeletNoteTask extends AsyncTask<Void, Void,Void>{
+
+                    @Override
+                    protected Void doInBackground(Void... voids) {
+                        NotesDatabase.getDatabase(getApplicationContext()).noteDao().deleteNote(alreadyAvailableNote);
+                        return null;
+                    }
+
+                    @Override
+                    protected void onPostExecute(Void aVoid) {
+                        super.onPostExecute(aVoid);
+                        Intent intent = new Intent();
+                        intent.putExtra("isNoteDeleted",true);
+                        setResult(RESULT_OK,intent);
+                        finish();
+                    }
+                }
+                new DeletNoteTask().execute();
+            }
+
+    });
+        view.findViewById(R.id.textCancel).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialogDeleteNote.dismiss();
+            }
+        });
+}      dialogDeleteNote.show();
+    }
     private  void setSubTitleIndicator(){
         GradientDrawable gradientDrawable = (GradientDrawable) viewSubTitleIndicator.getBackground();
         gradientDrawable.setColor(Color.parseColor(selectedNoteColor));
