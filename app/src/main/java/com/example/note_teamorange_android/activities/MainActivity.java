@@ -14,6 +14,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import com.example.note_teamorange_android.R;
@@ -33,6 +34,8 @@ import static com.example.note_teamorange_android.database.NotesDatabase.getData
 
 public class MainActivity extends AppCompatActivity implements NotesListener {
 
+    ImageButton myImageButton;
+
     public static final int REQUEST_CODE_ADD_NOTE = 1; //this request code is used to add a new note
     private static final int REQUEST_CODE_UPDATE_NOTE = 2;//this request code is used to update note
 public  static final int REQUEST_CODE_SHOW_NOTES = 3;//used to display all notes
@@ -47,6 +50,16 @@ public  static final int REQUEST_CODE_SHOW_NOTES = 3;//used to display all notes
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        myImageButton = findViewById(R.id.imageMap);
+
+        myImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentLoeNewActivity = new Intent(MainActivity.this, maps.class);
+                startActivity(intentLoeNewActivity);
+
+            }
+        });
 
         ImageView imageAddNoteMain = findViewById(R.id.imageAddNoteMain);
         imageAddNoteMain.setOnClickListener(new View.OnClickListener() {
