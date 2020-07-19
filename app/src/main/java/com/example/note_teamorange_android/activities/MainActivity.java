@@ -9,8 +9,11 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.example.note_teamorange_android.R;
@@ -69,6 +72,28 @@ public  static final int REQUEST_CODE_SHOW_NOTES = 3;//used to display all notes
         getNotes(REQUEST_CODE_SHOW_NOTES, false);//this getNotes() method is called from onCreate() method of an activity.
         //it means the app is just started & we need to display all notes from the database &that's why we r passing
         // REQUEST_CODE_SHOW_NOTES to that method
+
+        EditText inputSearch = findViewById(R.id.inputSearch);
+        inputSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+               notesAdaptor.cancelTimer();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (noteList.size() !=0){
+                    notesAdaptor.searchNotes(s.toString());
+                }
+
+            }
+        });
+
     }
 
     @Override
