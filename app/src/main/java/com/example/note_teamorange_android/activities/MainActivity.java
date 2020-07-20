@@ -35,6 +35,7 @@ import static com.example.note_teamorange_android.database.NotesDatabase.getData
 public class MainActivity extends AppCompatActivity implements NotesListener {
 
     ImageButton myImageButton;
+    ImageButton recordVoice;
 
     public static final int REQUEST_CODE_ADD_NOTE = 1; //this request code is used to add a new note
     private static final int REQUEST_CODE_UPDATE_NOTE = 2;//this request code is used to update note
@@ -52,10 +53,21 @@ public  static final int REQUEST_CODE_SHOW_NOTES = 3;//used to display all notes
         setContentView(R.layout.activity_main);
         myImageButton = findViewById(R.id.imageMap);
 
+        recordVoice = findViewById(R.id.addVoice);
+
+
         myImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intentLoeNewActivity = new Intent(MainActivity.this, maps.class);
+                startActivity(intentLoeNewActivity);
+
+            }
+        });
+        recordVoice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentLoeNewActivity = new Intent(MainActivity.this, recordingActivity.class);
                 startActivity(intentLoeNewActivity);
 
             }
