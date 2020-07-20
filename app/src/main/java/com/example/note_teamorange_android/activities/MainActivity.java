@@ -67,8 +67,8 @@ public  static final int REQUEST_CODE_SHOW_NOTES = 3;//used to display all notes
         recordVoice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intentLoeNewActivity = new Intent(MainActivity.this, recordingActivity.class);
-                startActivity(intentLoeNewActivity);
+                Intent intentRecNewActivity = new Intent(MainActivity.this, recordingActivity.class);
+                startActivity(intentRecNewActivity);
 
             }
         });
